@@ -14,6 +14,13 @@ public class Ship : MonoBehaviour
 
 	public float thrustSpeed = 1.0f;
 	public float turnSpeed = 1.0f;
+	
+
+	public Bullet bullet;
+
+	public float rateOfFire = 0.2f;
+	private float _nextFireTime = 0f;
+	private float _fireTime = 0f;
     
 	// Start is called before the first frame update
 	void Awake()
@@ -26,6 +33,10 @@ public class Ship : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		Debug.DrawRay(transform.position, transform.up * 5f, Color.green);
+
+		_fireTime += Time.deltaTime;
+
 		Vector2 offset = new Vector2(origin.position.x, origin.position.y);
 
 		if (Input.GetKey(KeyCode.W))
@@ -45,16 +56,25 @@ public class Ship : MonoBehaviour
 		else 
 		if (Input.GetKey(KeyCode.D))
 		{
-			turnDirection = -1.0f;			
+			this.turnDirection = -1.0f;			
 		}
 		else
 		{
-			turnDirection = 0;
+			this.turnDirection = 0;
+		}
+
+		if(Input.GetKey(KeyCode.Space) && _fireTime > this._nextFireTime)
+		{
+			this._nextFireTime = _fireTime + (1f * rateOfFire);
+			Shoot();
 		}
 	}
 
 	private void FixedUpdate()
 	{
+
+		Debug.Log($"Ship speed: {Vector2.Dot(rb.velocity, transform.up)}");
+
 		if(moving)
 		{			
 			rb.AddForce(this.transform.up * thrustSpeed);
@@ -64,6 +84,14 @@ public class Ship : MonoBehaviour
 		{
 			rb.AddTorque(turnDirection * turnSpeed);
 		}
+	}
+
+	private void Shoot()
+	{
+		//Spawn a bullet and set it's location and position to ours
+		var shipSpeed = Vector2.Dot(rb.velocity, transform.up);
+		Bullet bullet = Instantiate(this.bullet, this.origin.transform.position, this.origin.transform.rotation);
+		bullet.Shoot(shipSpeed);
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
