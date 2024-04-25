@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
-public class KeyboardMovement : MonoBehaviour
-{
-
-        
+public class Ship : MonoBehaviour
+{        
     private Rigidbody2D rb;    
     private Transform origin;
 
@@ -57,9 +56,7 @@ public class KeyboardMovement : MonoBehaviour
 	private void FixedUpdate()
 	{
 		if(moving)
-		{
-			//currentSpeed += acceleration;
-			//currentSpeed = Mathf.Min(currentSpeed, maxSpeed);
+		{			
 			rb.AddForce(this.transform.up * thrustSpeed);
 		}
 
@@ -68,6 +65,40 @@ public class KeyboardMovement : MonoBehaviour
 			rb.AddTorque(turnDirection * turnSpeed);
 		}
 	}
+
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		Debug.Log($"Ship collided with {collision.gameObject.tag}");
+
+		if (collision.gameObject.tag == "Boundary")
+		{
+			Vector3 newPosition;
+
+			var boundary = collision.gameObject.GetComponent("Boundary") as Boundary;
+			if (boundary.TopBottom) 
+			{
+				newPosition = new Vector3(
+					this.transform.position.x,
+					-this.transform.position.y,
+					this.transform.position.z
+					);
+			} 
+			else
+			{
+				newPosition = new Vector3(
+					-this.transform.position.x,
+					this.transform.position.y,
+					this.transform.position.z
+					);
+			}
+
+			this.transform.position = newPosition;
+			
+		}
+
+	}
+
+
 
 
 
