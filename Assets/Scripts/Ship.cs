@@ -21,6 +21,7 @@ public class Ship : MonoBehaviour
 	public float rateOfFire = 0.2f;
 	private float _nextFireTime = 0f;
 	private float _fireTime = 0f;
+	private bool _flipped = false;
     
 	// Start is called before the first frame update
 	void Awake()
@@ -73,7 +74,7 @@ public class Ship : MonoBehaviour
 	private void FixedUpdate()
 	{
 
-		Debug.Log($"Ship speed: {Vector2.Dot(rb.velocity, transform.up)}");
+		//Debug.Log($"Ship speed: {Vector2.Dot(rb.velocity, transform.up)}");
 
 		if(moving)
 		{			
@@ -97,9 +98,16 @@ public class Ship : MonoBehaviour
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		Debug.Log($"Ship collided with {collision.gameObject.tag}");
+		
 
 		if (collision.gameObject.tag == "Boundary")
 		{
+			Debug.Log($"{ this._flipped}");
+			if (this._flipped)
+			{
+				return;
+			}
+
 			Vector3 newPosition;
 
 			var boundary = collision.gameObject.GetComponent("Boundary") as Boundary;
@@ -120,11 +128,23 @@ public class Ship : MonoBehaviour
 					);
 			}
 
+			this._flipped = true;
 			this.transform.position = newPosition;
-			
-		}
 
+			StartCoroutine(PerformActionAfterDelay(0.1f, () =>
+			{
+				this._flipped = false;
+			}));
+		}
 	}
+
+	IEnumerator PerformActionAfterDelay(float delay, System.Action action)
+	{		
+		yield return new WaitForSeconds(delay);
+		action();
+	}
+
+
 
 
 
