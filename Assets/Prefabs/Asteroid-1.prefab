@@ -95,10 +95,10 @@ GameObject:
   - component: {fileID: 333103242207845741}
   - component: {fileID: 3549254784006877211}
   - component: {fileID: 123244939797750241}
-  - component: {fileID: 7676867923572328160}
+  - component: {fileID: -2850506127694071090}
   m_Layer: 0
   m_Name: Asteroid-1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -181,7 +181,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.25
---- !u!114 &7676867923572328160
+--- !u!114 &-2850506127694071090
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -193,10 +193,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 273d2b0b3a85f884793f29c86bc87018, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  log: 0
   sprites:
   - {fileID: 0}
   size: 1
   minSize: 0.5
   maxSize: 2
   minSpeed: 0.5
-  maxSpeed: 1
+  maxSpeed: 1.09
+  test: 1.81

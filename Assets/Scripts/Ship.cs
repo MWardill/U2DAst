@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 
-public class Ship : MonoBehaviour
+public class Ship : BaseMono
 {        
     private Rigidbody2D rb;    
     private Transform origin;
@@ -137,18 +137,5 @@ public class Ship : MonoBehaviour
 			}));
 		}
 	}
-
-	IEnumerator PerformActionAfterDelay(float delay, System.Action action)
-	{		
-		yield return new WaitForSeconds(delay);
-		action();
-	}
-
-
-
-
-
-
-
-
+	
 }

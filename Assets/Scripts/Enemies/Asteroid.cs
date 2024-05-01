@@ -1,8 +1,9 @@
+using Assets.Scripts.Enemies;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Asteroid : MonoBehaviour
+public class Asteroid : BaseMono, IEnemy
 {
     public Sprite[] sprites; 
 
@@ -16,11 +17,12 @@ public class Asteroid : MonoBehaviour
     public float minSpeed = 0.5f;
     public float maxSpeed = 0.5f;
 
-    private float speed = 1.0f;
-    
+    public float test = 1.0f;
 
-    private Vector3 _target;
-    private bool _pushed = false;
+    private float speed = 1.0f;
+	
+
+	private Vector3 _target;    
     private Quaternion _rotation;
 
 	// Start is called before the first frame update
@@ -48,15 +50,25 @@ public class Asteroid : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		if(!this._pushed && this._target != null)
-        {
-            //this.transform.position = Vector3.MoveTowards(this.transform.position,
-            //    this._target,
-            //    speed);
-
-            this._rigidbody.AddForce(this._target * speed);
-
-            this._pushed = false;
+		if(this._target != null)
+		{
+			this.Log($"Asteroid velocity: {this._rigidbody.velocity}");          
+			this._rigidbody.AddForce(this._target * speed);            
         }
+	}
+
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+		//Debug.Log("Entered something");
+	}
+
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		//Debug.Log("Entered something trigger asteroid");
+	}
+
+	public void Destroy()
+	{
+		Debug.Log("Destroyed");
 	}
 }

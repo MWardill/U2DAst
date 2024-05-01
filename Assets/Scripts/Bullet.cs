@@ -1,9 +1,10 @@
+using Assets.Scripts.Enemies;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : BaseMono
 {
     public float speed = 500.0f;
     public float range = 5.0f;
@@ -36,7 +37,17 @@ public class Bullet : MonoBehaviour
 			yield return null;
 		}
 	}
+	
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		this.Log($"Bullet collided with {collision.gameObject.tag}");
 
+		if (collision.gameObject.tag == "Enemy")
+		{
+			var enemy = collision.gameObject.GetComponent<IEnemy>();
+			enemy.Destroy();
+		}
+	}
 
 
 }
