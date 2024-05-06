@@ -1,3 +1,4 @@
+using Assets.Scripts.Utils;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro.EditorUtilities;
@@ -29,16 +30,8 @@ public class Spawner : MonoBehaviour
 			Asteroid asteroid = Instantiate(this.asteroidPrefab, spawnPoint, new Quaternion(0, 0, 0, 0));
 			
 			Quaternion rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
-			Vector3 direction = (GetRandomPoint(this.quadSize) - asteroid.transform.position).normalized;
+			Vector3 direction = (Utils.GetRandomPoint(this.quadSize) - asteroid.transform.position).normalized;
 			asteroid.Init(direction, rotation);
 		}		
-	}
-
-	private Vector3 GetRandomPoint(float quadSize)
-	{
-		float x = Random.Range(-quadSize / 2, quadSize * 2);
-		float y = Random.Range(-quadSize / 2, quadSize * 2);
-
-		return new Vector3(x, y, 0);
 	}
 }

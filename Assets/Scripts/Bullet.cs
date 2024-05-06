@@ -47,6 +47,8 @@ public class Bullet : BaseMono
 			var enemy = collision.gameObject.GetComponent<IEnemy>();
 			enemy.Destroy();
 		}
+		
+		Destroy(this.gameObject);
 	}
 
 

@@ -196,9 +196,9 @@ MonoBehaviour:
   log: 0
   sprites:
   - {fileID: 0}
-  size: 1
-  minSize: 0.5
-  maxSize: 2
-  minSpeed: 0.5
-  maxSpeed: 1.09
+  minSize: 1
+  maxSize: 2.5
+  minSpeed: 50
+  maxSpeed: 190
   test: 1.81
+  childPrefab: {fileID: -2850506127694071090}

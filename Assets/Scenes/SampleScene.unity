@@ -353,6 +353,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a879f2f622a3aa54e8ac74b22392a149, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  log: 0
   thrustSpeed: 8
   turnSpeed: 0.1
   bullet: {fileID: -6118555835194962767, guid: aebe4a5c76a129643879937ccf3c8baf, type: 3}
@@ -664,7 +665,7 @@ MonoBehaviour:
   spawnAmount: 3
   spawnDistance: 25
   quadSize: 10
-  asteroidPrefab: {fileID: 7676867923572328160, guid: 86337be8516a6744697630019d6fdacd, type: 3}
+  asteroidPrefab: {fileID: -2850506127694071090, guid: 86337be8516a6744697630019d6fdacd, type: 3}
 --- !u!4 &900681919
 Transform:
   m_ObjectHideFlags: 0
